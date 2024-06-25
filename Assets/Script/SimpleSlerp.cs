@@ -47,10 +47,14 @@ public class SimpleSlerp : MonoBehaviour
             // elapsedTime += Time.deltaTime;
             precentComplete += (Time.deltaTime * speed) / 10f;
             this.transform.position = Vector3.Slerp(startNewPos, endNewPos, precentComplete) + centerPivot;
+            if (precentComplete > 0.5f)
+            {
+                this.GetComponent<ThrowOBJHit>().SetHitBoxOn();
+            }
             yield return null;
         }
-        Destroy(this.gameObject);
         _isTurn();
+        StartCoroutine(this.GetComponent<ThrowOBJHit>().CheckColliderList());
         GameManager.Instance.FilpTurn();
     }
 
