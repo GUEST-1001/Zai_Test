@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class SimpleSlerp : MonoBehaviour
 
     // [SerializeField] float duration;
     [SerializeField] float speed;
+
+    Action _isTurn;
 
     // Start is called before the first frame update
     void Start()
@@ -47,12 +50,15 @@ public class SimpleSlerp : MonoBehaviour
             yield return null;
         }
         Destroy(this.gameObject);
+        _isTurn();
+        GameManager.Instance.FilpTurn();
     }
 
-    public void SetOBJValue(Vector3 targetPos)
+    public void SetOBJValue(Vector3 targetPos, Action isTurn)
     {
         startPos = this.transform.position;
         endPos = targetPos;
+        _isTurn = isTurn;
 
         centerPivot = (startPos + endPos) * 0.5f;
         centerPivot -= new Vector3(0, -centerOffset);

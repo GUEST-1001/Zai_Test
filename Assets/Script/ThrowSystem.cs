@@ -7,14 +7,20 @@ public class ThrowSystem : MonoBehaviour
 {
     [SerializeField] GameObject throwOBJ;
     [SerializeField] GameObject target;
+    MoveTarget moveTarget;
     [SerializeField] float targetSpeed;
     bool isMousePressed = false;
+    Vector3 oriPosTarget;
+
+    public bool isTurn = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        oriPosTarget = target.transform.localPosition;
+        moveTarget = target.GetComponent<MoveTarget>();
+        targetSpeed = GameManager.Instance.mainTargetSpeed;
     }
 
     // Update is called once per frame
@@ -30,21 +36,28 @@ public class ThrowSystem : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // target.transform.position += Vector3.left * Time.deltaTime;
-        isMousePressed = true;
+        if (isTurn)
+        {
+            // target.transform.position += Vector3.left * Time.deltaTime;
+            isMousePressed = true;
+        }
     }
 
     private void OnMouseUp()
     {
-        isMousePressed = false;
-        ThrowOBJ();
+        if (isTurn)
+        {
+            isMousePressed = false;
+            isTurn = !isTurn;
+            ThrowOBJ();
+        }
     }
 
     private void mousecontroller()
     {
         if (isMousePressed)
         {
-            target.transform.position += Vector3.left * Time.deltaTime * targetSpeed;
+            moveTarget.Move(targetSpeed);
         }
     }
 
@@ -53,8 +66,13 @@ public class ThrowSystem : MonoBehaviour
         Vector3 tempPos = this.transform.position;
         tempPos += new Vector3(0, 0, -0.1f);
         GameObject temp = Instantiate(throwOBJ, tempPos, Quaternion.identity);
-        temp.GetComponent<SimpleSlerp>().SetOBJValue(target.transform.position);
+        temp.GetComponent<SimpleSlerp>().SetOBJValue(target.transform.position, EndThrowOBJ);
         // target.transform.localPosition = Vector3.zero;
-        target.transform.localPosition = new Vector3(0, 3f, 0);
+    }
+
+    void EndThrowOBJ()
+    {
+        target.transform.localPosition = oriPosTarget;
+        isTurn = !isTurn;
     }
 }
