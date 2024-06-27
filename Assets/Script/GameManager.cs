@@ -7,25 +7,25 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     static public GameManager Instance;
-    [SerializeField] ThrowSystem player1, player2;
+    [SerializeField] PlayerController player1, player2;
     [SerializeField] TMP_Text windText;
 
     public float windValue;
 
     public float mainTargetSpeed;
 
+    [SerializeField] bool isPlayer1Turn = false;
+
     private void Awake()
     {
         Instance = this;
         player1.isTurn = true;
-        RandomWind();
     }
 
     public void FilpTurn()
     {
         player1.isTurn = !player1.isTurn;
         player2.isTurn = !player2.isTurn;
-        RandomWind();
     }
 
     void RandomWind()

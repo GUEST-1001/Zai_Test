@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,10 +10,10 @@ public class ThrowSystem : MonoBehaviour
     [SerializeField] GameObject target;
     MoveTarget moveTarget;
     [SerializeField] float targetSpeed;
-    bool isMousePressed = false;
+    public bool isMousePressed = false;
     Vector3 oriPosTarget;
 
-    public bool isTurn = false;
+    public Action _switchIsTuen;
 
 
     // Start is called before the first frame update
@@ -28,40 +29,25 @@ public class ThrowSystem : MonoBehaviour
     {
 
     }
-
     private void FixedUpdate()
     {
         mousecontroller();
     }
 
-    private void OnMouseDown()
-    {
-        if (isTurn)
-        {
-            // target.transform.position += Vector3.left * Time.deltaTime;
-            isMousePressed = true;
-        }
-    }
-
-    private void OnMouseUp()
-    {
-        if (isTurn)
-        {
-            isMousePressed = false;
-            isTurn = !isTurn;
-            ThrowOBJ();
-        }
-    }
-
-    private void mousecontroller()
+    public void mousecontroller()
     {
         if (isMousePressed)
         {
-            moveTarget.Move(targetSpeed);
+            if (moveTarget.Move(targetSpeed))
+            {
+                _switchIsTuen();
+                ThrowOBJ();
+                isMousePressed = false;
+            }
         }
     }
 
-    private void ThrowOBJ()
+    public void ThrowOBJ()
     {
         Vector3 tempPos = this.transform.position;
         tempPos += new Vector3(0, 0, -0.1f);
@@ -73,6 +59,6 @@ public class ThrowSystem : MonoBehaviour
     void EndThrowOBJ()
     {
         target.transform.localPosition = oriPosTarget;
-        isTurn = !isTurn;
+        _switchIsTuen();
     }
 }

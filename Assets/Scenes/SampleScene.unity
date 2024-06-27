@@ -1286,11 +1286,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7279db327deb24d9af5b33d399cb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 1376606696}
-  player2: {fileID: 1033348862}
+  player1: {fileID: 1376606698}
+  player2: {fileID: 1033348864}
   windText: {fileID: 316031770}
   windValue: 0
   mainTargetSpeed: 20
+  isPlayer1Turn: 0
 --- !u!4 &966343064
 Transform:
   m_ObjectHideFlags: 0
@@ -1317,6 +1318,7 @@ GameObject:
   - component: {fileID: 1033348861}
   - component: {fileID: 1033348863}
   - component: {fileID: 1033348862}
+  - component: {fileID: 1033348864}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -1358,7 +1360,7 @@ MonoBehaviour:
   throwOBJ: {fileID: 8793896014526356140, guid: 5abb978618c8cce4eafc0c5e73429ba5, type: 3}
   target: {fileID: 1334106324}
   targetSpeed: 10
-  isTurn: 0
+  isMousePressed: 0
 --- !u!61 &1033348863
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1404,6 +1406,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7, y: 7}
   m_EdgeRadius: 0
+--- !u!114 &1033348864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033348860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0101a11d6d1e2aa42b11166d9984dece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTurn: 0
 --- !u!1 &1220653734
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,6 +1748,7 @@ GameObject:
   - component: {fileID: 1376606695}
   - component: {fileID: 1376606697}
   - component: {fileID: 1376606696}
+  - component: {fileID: 1376606698}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -1774,7 +1790,7 @@ MonoBehaviour:
   throwOBJ: {fileID: 8793896014526356140, guid: 5abb978618c8cce4eafc0c5e73429ba5, type: 3}
   target: {fileID: 649708915}
   targetSpeed: 10
-  isTurn: 0
+  isMousePressed: 0
 --- !u!61 &1376606697
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1820,6 +1836,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7, y: 7}
   m_EdgeRadius: 0
+--- !u!114 &1376606698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376606694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0101a11d6d1e2aa42b11166d9984dece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTurn: 0
 --- !u!1 &1815135401
 GameObject:
   m_ObjectHideFlags: 0

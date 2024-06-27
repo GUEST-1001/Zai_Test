@@ -16,8 +16,16 @@ public class MoveTarget : MonoBehaviour
 
     }
 
-    public void Move(float targetSpeed)
+    public bool Move(float targetSpeed)
     {
         this.transform.localPosition += Vector3.left * Time.deltaTime * targetSpeed;
+        if (this.transform.localPosition.x <= -35f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
