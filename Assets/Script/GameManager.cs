@@ -16,9 +16,66 @@ public class GameManager : MonoBehaviour
 
     public bool isPlayer1Turn = false;
 
+    [SerializeField] GameUpdateConfig configGoogleSheet;
+
+    [Header("-----Google Sheet Config-----")]
+    public ConfigList playerHP;
+    public ConfigList enemyEasy;
+    public ConfigList enemyNormal;
+    public ConfigList enemyHard;
+    public ConfigList normalAtk;
+    public ConfigList smallAtk;
+    public ConfigList PowAtk;
+    public ConfigList DoubleAtk;
+    public ConfigList heal;
+    public ConfigList timeToThink;
+    public ConfigList timeToWarn;
+
     private void Awake()
     {
         Instance = this;
+        configGoogleSheet.Sync();
+        foreach (var item in configGoogleSheet.config)
+        {
+            switch (item.name)
+            {
+                case "PlayerHP":
+                    playerHP = item;
+                    break;
+                case "EnemyEasy":
+                    enemyEasy = item;
+                    break;
+                case "EnemyNormal":
+                    enemyNormal = item;
+                    break;
+                case "EnemyHard":
+                    enemyHard = item;
+                    break;
+                case "NormalAttack":
+                    normalAtk = item;
+                    break;
+                case "SmallAttack":
+                    smallAtk = item;
+                    break;
+                case "PowerAttack":
+                    PowAtk = item;
+                    break;
+                case "DoubleAttack":
+                    DoubleAtk = item;
+                    break;
+                case "Heal":
+                    heal = item;
+                    break;
+                case "TimeToThink":
+                    timeToThink = item;
+                    break;
+                case "TimeToWarning":
+                    timeToWarn = item;
+                    break;
+
+            }
+        }
+
         RandomWind();
         FilpTurn();
         // player1.isTurn = true;

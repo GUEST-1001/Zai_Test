@@ -12,6 +12,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb1ae534db2b944d815bcccb45b3cff, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  sheetID: 
-  gridID: 
-  config: []
+  sheetID: 1qrRu8I1onnZzVGpd-05WDunPVE1XFiW3fC5KNkAs6po
+  gridID: 0
+  config:
+  - name: PlayerHP
+    amount: 0
+    damage: 0
+    HP: 50
+    MissedChance: 0
+    sec: 0
+  - name: EnemyEasy
+    amount: 0
+    damage: 0
+    HP: 50
+    MissedChance: 50
+    sec: 0
+  - name: EnemyNormal
+    amount: 0
+    damage: 0
+    HP: 60
+    MissedChance: 30
+    sec: 0
+  - name: EnemyHard
+    amount: 0
+    damage: 0
+    HP: 70
+    MissedChance: 15
+    sec: 0
+  - name: NormalAttack
+    amount: 0
+    damage: 8
+    HP: 0
+    MissedChance: 0
+    sec: 0
+  - name: SmallAttack
+    amount: 0
+    damage: 5
+    HP: 0
+    MissedChance: 0
+    sec: 0
+  - name: PowerAttack
+    amount: 0
+    damage: 10
+    HP: 0
+    MissedChance: 0
+    sec: 0
+  - name: DoubleAttack
+    amount: 2
+    damage: 5
+    HP: 0
+    MissedChance: 0
+    sec: 0
+  - name: Heal
+    amount: 0
+    damage: 0
+    HP: 20
+    MissedChance: 0
+    sec: 0
+  - name: TimeToThink
+    amount: 0
+    damage: 0
+    HP: 0
+    MissedChance: 0
+    sec: 30
+  - name: TimeToWarning
+    amount: 0
+    damage: 0
+    HP: 0
+    MissedChance: 0
+    sec: 10

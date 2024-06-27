@@ -1292,6 +1292,18 @@ MonoBehaviour:
   windValue: 0
   mainTargetSpeed: 20
   isPlayer1Turn: 0
+  configGoogleSheet: {fileID: 11400000, guid: 903d42af15fba5349a85373cc41cef45, type: 2}
+  playerHP: []
+  enemyEasy: []
+  enemyNormal: []
+  enemyHard: []
+  normalAtk: []
+  smallAtk: []
+  PowAtk: []
+  DoubleAtk: []
+  heal: []
+  timeToThink: []
+  timeToWarn: []
 --- !u!4 &966343064
 Transform:
   m_ObjectHideFlags: 0
