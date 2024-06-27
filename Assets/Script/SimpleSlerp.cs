@@ -55,7 +55,6 @@ public class SimpleSlerp : MonoBehaviour
         }
         _isTurn();
         StartCoroutine(this.GetComponent<ThrowOBJHit>().CheckColliderList());
-        GameManager.Instance.FilpTurn();
     }
 
     public void SetOBJValue(Vector3 targetPos, Action isTurn)

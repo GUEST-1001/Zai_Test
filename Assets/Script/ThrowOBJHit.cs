@@ -45,6 +45,7 @@ public class ThrowOBJHit : MonoBehaviour
         {
             Debug.Log("CritHit");
         }
+        GameManager.Instance.FilpTurn();
         Destroy(this.gameObject);
         yield return null;
     }

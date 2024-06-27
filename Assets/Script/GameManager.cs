@@ -19,13 +19,31 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        player1.isTurn = true;
+        RandomWind();
+        FilpTurn();
+        // player1.isTurn = true;
     }
 
     public void FilpTurn()
     {
-        player1.isTurn = !player1.isTurn;
-        player2.isTurn = !player2.isTurn;
+        // player1.isTurn = !player1.isTurn;
+        // player2.isTurn = !player2.isTurn;
+        isPlayer1Turn = !isPlayer1Turn;
+        switch (isPlayer1Turn)
+        {
+            case true:
+                player1.StartTurn();
+                break;
+            case false:
+                player2.StartTurn();
+                break;
+        }
+    }
+
+    public void EndTurn()
+    {
+        RandomWind();
+        FilpTurn();
     }
 
     void RandomWind()
@@ -39,5 +57,7 @@ public class GameManager : MonoBehaviour
         }
         windText.text = windValue.ToString();
     }
+
+
 
 }

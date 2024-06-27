@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     {
         throwSystem = this.GetComponent<ThrowSystem>();
         mouseArea = this.GetComponent<BoxCollider2D>();
-        throwSystem._switchIsTuen = SwitchIsTurn;
+        throwSystem._switchIsTurn = SwitchIsTurn;
     }
 
     private void OnMouseDown()
@@ -31,22 +31,22 @@ public class PlayerController : MonoBehaviour
         {
             throwSystem.isMousePressed = false;
             throwSystem.ThrowOBJ();
-            isTurn = !isTurn;
+            SwitchIsTurn(false);
         }
     }
 
-    void SwitchIsTurn()
+    void SwitchIsTurn(bool _isTurn)
     {
-        isTurn = !isTurn;
+        isTurn = _isTurn;
     }
 
-    public void MyTurn()
-    {
-        mouseArea.enabled = false;
-    }
+    // public void MyTurn()
+    // {
+    //     mouseArea.enabled = false;
+    // }
 
-    private void Update()
+    public void StartTurn()
     {
-
+        SwitchIsTurn(true);
     }
 }

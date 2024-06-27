@@ -13,7 +13,7 @@ public class ThrowSystem : MonoBehaviour
     public bool isMousePressed = false;
     Vector3 oriPosTarget;
 
-    public Action _switchIsTuen;
+    public Action<bool> _switchIsTurn;
 
 
     // Start is called before the first frame update
@@ -40,7 +40,7 @@ public class ThrowSystem : MonoBehaviour
         {
             if (moveTarget.Move(targetSpeed))
             {
-                _switchIsTuen();
+                _switchIsTurn(false);
                 ThrowOBJ();
                 isMousePressed = false;
             }
@@ -56,9 +56,10 @@ public class ThrowSystem : MonoBehaviour
         // target.transform.localPosition = Vector3.zero;
     }
 
+    //just in case
     void EndThrowOBJ()
     {
         target.transform.localPosition = oriPosTarget;
-        _switchIsTuen();
+        _switchIsTurn(false);
     }
 }
