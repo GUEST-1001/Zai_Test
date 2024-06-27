@@ -57,10 +57,24 @@ public class SimpleSlerp : MonoBehaviour
         StartCoroutine(this.GetComponent<ThrowOBJHit>().CheckColliderList());
     }
 
-    public void SetOBJValue(Vector3 targetPos, Action isTurn)
+    public void SetOBJValue(Vector3 targetPos, Action isTurn, Vector3 oriTargetPos)
     {
         startPos = this.transform.position;
         endPos = targetPos;
+
+        endPos.x += GameManager.Instance.windValue;
+        switch (GameManager.Instance.isPlayer1Turn)
+        {
+            case true:
+                if (endPos.x > oriTargetPos.x)
+                    endPos = oriTargetPos;
+                break;
+            case false:
+                if (endPos.x < oriTargetPos.x)
+                    endPos = oriTargetPos;
+                break;
+        }
+
         _isTurn = isTurn;
 
         centerPivot = (startPos + endPos) * 0.5f;

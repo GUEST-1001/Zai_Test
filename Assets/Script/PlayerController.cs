@@ -2,17 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
     public bool isTurn = false;
     ThrowSystem throwSystem;
-    BoxCollider2D mouseArea;
 
     private void Awake()
     {
         throwSystem = this.GetComponent<ThrowSystem>();
-        mouseArea = this.GetComponent<BoxCollider2D>();
         throwSystem._switchIsTurn = SwitchIsTurn;
     }
 

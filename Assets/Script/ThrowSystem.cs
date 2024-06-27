@@ -11,7 +11,7 @@ public class ThrowSystem : MonoBehaviour
     MoveTarget moveTarget;
     [SerializeField] float targetSpeed;
     public bool isMousePressed = false;
-    Vector3 oriPosTarget;
+    Vector3 oriPosTarget, oriPosTargetWorld;
 
     public Action<bool> _switchIsTurn;
 
@@ -20,6 +20,7 @@ public class ThrowSystem : MonoBehaviour
     void Start()
     {
         oriPosTarget = target.transform.localPosition;
+        oriPosTargetWorld = target.transform.position;
         moveTarget = target.GetComponent<MoveTarget>();
         targetSpeed = GameManager.Instance.mainTargetSpeed;
     }
@@ -52,7 +53,7 @@ public class ThrowSystem : MonoBehaviour
         Vector3 tempPos = this.transform.position;
         tempPos += new Vector3(0, 0, -0.1f);
         GameObject temp = Instantiate(throwOBJ, tempPos, Quaternion.identity);
-        temp.GetComponent<SimpleSlerp>().SetOBJValue(target.transform.position, EndThrowOBJ);
+        temp.GetComponent<SimpleSlerp>().SetOBJValue(target.transform.position, EndThrowOBJ, oriPosTargetWorld);
         // target.transform.localPosition = Vector3.zero;
     }
 

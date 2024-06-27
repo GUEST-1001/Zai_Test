@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public float mainTargetSpeed;
 
-    [SerializeField] bool isPlayer1Turn = false;
+    public bool isPlayer1Turn = false;
 
     private void Awake()
     {
