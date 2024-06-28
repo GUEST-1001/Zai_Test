@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThrowSystem : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ThrowSystem : MonoBehaviour
     Vector3 oriPosTarget, oriPosTargetWorld;
 
     public Action<bool> _switchIsTurn;
+    public GameObject throwSlider;
 
 
     // Start is called before the first frame update
@@ -22,6 +24,7 @@ public class ThrowSystem : MonoBehaviour
         oriPosTarget = target.transform.localPosition;
         oriPosTargetWorld = target.transform.position;
         moveTarget = target.GetComponent<MoveTarget>();
+        moveTarget.throwSlider = throwSlider.GetComponent<Slider>();
         targetSpeed = GameManager.Instance.mainTargetSpeed;
     }
 
@@ -61,5 +64,7 @@ public class ThrowSystem : MonoBehaviour
     void EndThrowOBJ()
     {
         target.transform.localPosition = oriPosTarget;
+        throwSlider.SetActive(false);
+        throwSlider.GetComponent<Slider>().value = 0f;
     }
 }

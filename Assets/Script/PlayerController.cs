@@ -3,17 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public bool isTurn = false;
     ThrowSystem throwSystem;
     [SerializeField] GameObject critHit, hit;
+    [SerializeField] GameObject throwSlider;
 
     private void Awake()
     {
         throwSystem = this.GetComponent<ThrowSystem>();
         throwSystem._switchIsTurn = SwitchIsTurn;
+        throwSystem.throwSlider = throwSlider;
     }
 
     private void OnMouseDown()
@@ -21,6 +24,7 @@ public class PlayerController : MonoBehaviour
         if (isTurn)
         {
             // target.transform.position += Vector3.left * Time.deltaTime;
+            throwSlider.SetActive(true);
             throwSystem.isMousePressed = true;
         }
     }
