@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Zai_Test.sln"
+    "dotnet.defaultSolution": "Zai_Test.sln",
+    "dotnet.preferCSharpExtension": true
 }
