@@ -4,6 +4,7 @@ using Spine.Unity;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text windText, p1HpText, p2HpText;
     [SerializeField] SkeletonAnimation p1Spine, p2Spine;
     Spine.AnimationState p1SpineState, p2SpineState;
+    [SerializeField] TwoWaySlider windSlider;
+    [SerializeField] Image windSliderFill;
+    [SerializeField] Slider p1HpSlider, p2HpSlider;
 
     [Header("-----Game Value-----")]
     public float windValue;
@@ -46,10 +50,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SyncGoogleSheet());
         p1Hp = playerHP.HP;
         p2Hp = playerHP.HP;
+        // player1.isTurn = true;
+    }
+
+    private void Start()
+    {
         SetHPUI();
         RandomWind();
         FilpTurn();
-        // player1.isTurn = true;
     }
 
     IEnumerator SyncGoogleSheet()
@@ -128,12 +136,24 @@ public class GameManager : MonoBehaviour
     void RandomWind()
     {
         windValue = Random.Range(0f, 5f);
-        switch (Random.Range(0, 2))
+        if (windValue < 1f)
         {
-            case 1:
-                windValue = -windValue;
-                break;
+            windValue = 0f;
         }
+        else
+        {
+            switch (Random.Range(0, 2))
+            {
+                case 1:
+                    windValue = -windValue;
+                    windSliderFill.color = Color.red;
+                    break;
+                case 0:
+                    windSliderFill.color = Color.blue;
+                    break;
+            }
+        }
+        windSlider.UpdateSliderValue(windValue);
         windText.text = windValue.ToString();
     }
 

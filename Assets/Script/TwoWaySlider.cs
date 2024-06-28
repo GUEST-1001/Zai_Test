@@ -13,7 +13,7 @@ public class TwoWaySlider : MonoBehaviour
 
     void Awake()
     {
-        _slider = GetComponent<Slider>();
+        // _slider = GetComponent<Slider>();
 
         // If the slider isn't null, add the UpdateSlider method as a
         // listener for the slider's onValueChanged event
@@ -26,20 +26,20 @@ public class TwoWaySlider : MonoBehaviour
     private void Start()
     {
         // Ensures the slider value is set to the center
-        _slider.value = _startValue;
+        // _slider.value = _startValue;
         // If the value of the slider is already 0, the onValueChanged
         // event won't be fired, so make sure it does to ensure the fill
         // is centered from the start
-        UpdateSlider(_startValue);
+        // UpdateSlider(_startValue);
     }
 
-    private void OnDisable()
-    {
-        if (_slider)
-        {
-            _slider.onValueChanged.RemoveListener(UpdateSlider);
-        }
-    }
+    // private void OnDisable()
+    // {
+    //     if (_slider)
+    //     {
+    //         _slider.onValueChanged.RemoveListener(UpdateSlider);
+    //     }
+    // }
 
     /// <summary>
     /// Updates the fillRect's anchors based on the position of the handle's anchors, which get adjusted as the
