@@ -50,6 +50,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SyncGoogleSheet());
         p1Hp = playerHP.HP;
         p2Hp = playerHP.HP;
+
+        p1HpSlider.maxValue = playerHP.HP;
+        p2HpSlider.maxValue = playerHP.HP;
         // player1.isTurn = true;
     }
 
@@ -161,6 +164,8 @@ public class GameManager : MonoBehaviour
     {
         p1HpText.text = p1Hp.ToString();
         p2HpText.text = p2Hp.ToString();
+        p1HpSlider.value = p1Hp;
+        p2HpSlider.value = p2Hp;
     }
 
     public void CalcEndTurn(string hitType)
