@@ -20,7 +20,7 @@ public class SimpleSlerp : MonoBehaviour
     // [SerializeField] float duration;
     [SerializeField] float speed;
 
-    Action _isTurn;
+    Action _endThrow;
 
     // Start is called before the first frame update
     void Start()
@@ -53,11 +53,11 @@ public class SimpleSlerp : MonoBehaviour
             }
             yield return null;
         }
-        _isTurn();
+        _endThrow();
         StartCoroutine(this.GetComponent<ThrowOBJHit>().CheckColliderList());
     }
 
-    public void SetOBJValue(Vector3 targetPos, Action isTurn, Vector3 oriTargetPos)
+    public void SetOBJValue(Vector3 targetPos, Action endThrow, Vector3 oriTargetPos)
     {
         startPos = this.transform.position;
         endPos = targetPos;
@@ -75,7 +75,7 @@ public class SimpleSlerp : MonoBehaviour
                 break;
         }
 
-        _isTurn = isTurn;
+        _endThrow = endThrow;
 
         centerPivot = (startPos + endPos) * 0.5f;
         centerPivot -= new Vector3(0, -centerOffset);

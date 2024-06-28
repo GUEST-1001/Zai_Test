@@ -61,6 +61,5 @@ public class ThrowSystem : MonoBehaviour
     void EndThrowOBJ()
     {
         target.transform.localPosition = oriPosTarget;
-        _switchIsTurn(false);
     }
 }

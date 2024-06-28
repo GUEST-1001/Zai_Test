@@ -6,18 +6,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("-----Game Element-----")]
     static public GameManager Instance;
+    [SerializeField] GameUpdateConfig configGoogleSheet;
     [SerializeField] PlayerController player1, player2;
-    [SerializeField] TMP_Text windText;
+    [SerializeField] TMP_Text windText, p1HpText, p2HpText;
 
+    [Header("-----Game Value-----")]
     public float windValue;
-
     public float mainTargetSpeed;
-
+    int p1Hp, p2Hp;
     public bool isPlayer1Turn = false;
 
-    [SerializeField] GameUpdateConfig configGoogleSheet;
-
+    #region Google Sheet Config
     [Header("-----Google Sheet Config-----")]
     public ConfigList playerHP;
     public ConfigList enemyEasy;
@@ -31,9 +32,22 @@ public class GameManager : MonoBehaviour
     public ConfigList timeToThink;
     public ConfigList timeToWarn;
 
+    #endregion
+
     private void Awake()
     {
         Instance = this;
+        StartCoroutine(SyncGoogleSheet());
+        p1Hp = playerHP.HP;
+        p2Hp = playerHP.HP;
+        SetHPUI();
+        RandomWind();
+        FilpTurn();
+        // player1.isTurn = true;
+    }
+
+    IEnumerator SyncGoogleSheet()
+    {
         configGoogleSheet.Sync();
         foreach (var item in configGoogleSheet.config)
         {
@@ -75,10 +89,7 @@ public class GameManager : MonoBehaviour
 
             }
         }
-
-        RandomWind();
-        FilpTurn();
-        // player1.isTurn = true;
+        yield return null;
     }
 
     public void FilpTurn()
@@ -115,6 +126,45 @@ public class GameManager : MonoBehaviour
         windText.text = windValue.ToString();
     }
 
+    public void SetHPUI()
+    {
+        p1HpText.text = p1Hp.ToString();
+        p2HpText.text = p2Hp.ToString();
+    }
 
+    public void GetHit(string hitType)
+    {
+        switch (isPlayer1Turn)
+        {
+            case true:
+                switch (hitType)
+                {
+                    case "CritHit":
+                        Debug.Log("Player 2 CritHit");
+                        break;
+                    case "Hit":
+                        Debug.Log("Player 2 Hit");
+                        break;
+                    case "NoHit":
+                        Debug.Log("Player 2 NoHit");
+                        break;
+                }
+                break;
+            case false:
+                switch (hitType)
+                {
+                    case "CritHit":
+                        Debug.Log("Player 1 CritHit");
+                        break;
+                    case "Hit":
+                        Debug.Log("Player 1 Hit");
+                        break;
+                    case "NoHit":
+                        Debug.Log("Player 1 NoHit");
+                        break;
+                }
+                break;
+        }
+    }
 
 }

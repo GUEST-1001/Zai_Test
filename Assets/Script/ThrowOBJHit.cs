@@ -39,11 +39,15 @@ public class ThrowOBJHit : MonoBehaviour
         }
         if (isHit)
         {
-            Debug.Log("Hit");
+            GameManager.Instance.GetHit("Hit");
         }
-        if (isCritHit)
+        else if (isCritHit)
         {
-            Debug.Log("CritHit");
+            GameManager.Instance.GetHit("CritHit");
+        }
+        else
+        {
+            GameManager.Instance.GetHit("NoHit");
         }
         GameManager.Instance.EndTurn();
         Destroy(this.gameObject);
