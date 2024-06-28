@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &305401990
 Transform:
   m_ObjectHideFlags: 0
@@ -594,7 +594,7 @@ MonoBehaviour:
   disableRenderingOnOverride: 1
   updateTiming: 1
   unscaledTime: 0
-  _animationName: Idle UnFriendly 1
+  _animationName: 
   loop: 1
   timeScale: 1
 --- !u!23 &457742151
@@ -718,7 +718,7 @@ MonoBehaviour:
   disableRenderingOnOverride: 1
   updateTiming: 1
   unscaledTime: 0
-  _animationName: Idle UnFriendly 1
+  _animationName: 
   loop: 1
   timeScale: 1
 --- !u!23 &629021324
@@ -999,7 +999,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &758524857
 Transform:
   m_ObjectHideFlags: 0
@@ -1428,6 +1428,8 @@ MonoBehaviour:
   windText: {fileID: 316031770}
   p1HpText: {fileID: 761838644}
   p2HpText: {fileID: 2064338345}
+  p1Spine: {fileID: 629021323}
+  p2Spine: {fileID: 457742150}
   windValue: 0
   mainTargetSpeed: 20
   isPlayer1Turn: 0
@@ -1590,6 +1592,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTurn: 0
+  critHit: {fileID: 758524856}
+  hit: {fileID: 305401989}
 --- !u!65 &1033348865
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1627,7 +1631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1220653735
 Transform:
   m_ObjectHideFlags: 0
@@ -1823,7 +1827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1349277597
 Transform:
   m_ObjectHideFlags: 0
@@ -1996,6 +2000,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTurn: 0
+  critHit: {fileID: 1220653734}
+  hit: {fileID: 1349277596}
 --- !u!65 &1376606699
 BoxCollider:
   m_ObjectHideFlags: 0

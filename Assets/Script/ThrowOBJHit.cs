@@ -39,17 +39,17 @@ public class ThrowOBJHit : MonoBehaviour
         }
         if (isHit)
         {
-            GameManager.Instance.GetHit("Hit");
+            GameManager.Instance.CalcEndTurn("Hit");
         }
         else if (isCritHit)
         {
-            GameManager.Instance.GetHit("CritHit");
+            GameManager.Instance.CalcEndTurn("CritHit");
         }
         else
         {
-            GameManager.Instance.GetHit("NoHit");
+            GameManager.Instance.CalcEndTurn("NoHit");
         }
-        GameManager.Instance.EndTurn();
+        // GameManager.Instance.EndTurn();
         Destroy(this.gameObject);
         yield return null;
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Spine.Unity;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameUpdateConfig configGoogleSheet;
     [SerializeField] PlayerController player1, player2;
     [SerializeField] TMP_Text windText, p1HpText, p2HpText;
+    [SerializeField] SkeletonAnimation p1Spine, p2Spine;
+    Spine.AnimationState p1SpineState, p2SpineState;
 
     [Header("-----Game Value-----")]
     public float windValue;
@@ -37,6 +40,9 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        p1SpineState = p1Spine.AnimationState;
+        p2SpineState = p2Spine.AnimationState;
+
         StartCoroutine(SyncGoogleSheet());
         p1Hp = playerHP.HP;
         p2Hp = playerHP.HP;
@@ -96,13 +102,18 @@ public class GameManager : MonoBehaviour
     {
         // player1.isTurn = !player1.isTurn;
         // player2.isTurn = !player2.isTurn;
+        PlayAni("Idle UnFriendly 1", "Idle UnFriendly 1");
         isPlayer1Turn = !isPlayer1Turn;
         switch (isPlayer1Turn)
         {
             case true:
+                player1.SetHitBox(false);
+                player2.SetHitBox(true);
                 player1.StartTurn();
                 break;
             case false:
+                player1.SetHitBox(true);
+                player2.SetHitBox(false);
                 player2.StartTurn();
                 break;
         }
@@ -132,38 +143,80 @@ public class GameManager : MonoBehaviour
         p2HpText.text = p2Hp.ToString();
     }
 
-    public void GetHit(string hitType)
+    public void CalcEndTurn(string hitType)
+    {
+        switch (hitType)
+        {
+            case "CritHit":
+                CalcHitDmg(normalAtk.damage);
+                StartCoroutine(PlayAniAndWait("Happy Friendly", "Moody UnFriendly", 3f));
+                break;
+            case "Hit":
+                CalcHitDmg(smallAtk.damage);
+                StartCoroutine(PlayAniAndWait("Happy Friendly", "Moody UnFriendly", 3f));
+                break;
+            case "NoHit":
+                CalcHitDmg(0);
+                StartCoroutine(PlayAniAndWait("Moody UnFriendly", "Happy Friendly", 3f));
+                break;
+        }
+    }
+
+    void CalcHitDmg(int dmg)
     {
         switch (isPlayer1Turn)
         {
             case true:
-                switch (hitType)
-                {
-                    case "CritHit":
-                        Debug.Log("Player 2 CritHit");
-                        break;
-                    case "Hit":
-                        Debug.Log("Player 2 Hit");
-                        break;
-                    case "NoHit":
-                        Debug.Log("Player 2 NoHit");
-                        break;
-                }
+                p2Hp -= dmg;
+                p2Hp = p2Hp < 0 ? 0 : p2Hp;
                 break;
             case false:
-                switch (hitType)
-                {
-                    case "CritHit":
-                        Debug.Log("Player 1 CritHit");
-                        break;
-                    case "Hit":
-                        Debug.Log("Player 1 Hit");
-                        break;
-                    case "NoHit":
-                        Debug.Log("Player 1 NoHit");
-                        break;
-                }
+                p1Hp -= dmg;
+                p1Hp = p1Hp < 0 ? 0 : p1Hp;
                 break;
+        }
+        SetHPUI();
+    }
+
+    void PlayAni(string p1, string p2)
+    {
+        p1SpineState.SetAnimation(0, p1, true);
+        p2SpineState.SetAnimation(0, p2, true);
+    }
+
+    IEnumerator PlayAniAndWait(string nowPlayer, string targetPlayer, float waitTime)
+    {
+        if (p1Hp > 0 && p2Hp > 0)
+        {
+            switch (isPlayer1Turn)
+            {
+                case true:
+                    PlayAni(nowPlayer, targetPlayer);
+                    break;
+                case false:
+                    PlayAni(targetPlayer, nowPlayer);
+                    break;
+            }
+            yield return new WaitForSeconds(waitTime);
+            EndTurn();
+        }
+        else
+        {
+            WinLoseCheck();
+        }
+    }
+
+    void WinLoseCheck()
+    {
+        if (p1Hp <= 0)
+        {
+            PlayAni("Moody UnFriendly", "Cheer Friendly");
+            Debug.Log("Player 2 Win");
+        }
+        else
+        {
+            PlayAni("Cheer Friendly", "Moody UnFriendly");
+            Debug.Log("Player 1 Win");
         }
     }
 

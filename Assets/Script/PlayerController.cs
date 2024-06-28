@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public bool isTurn = false;
     ThrowSystem throwSystem;
+    [SerializeField] GameObject critHit, hit;
 
     private void Awake()
     {
@@ -47,5 +48,11 @@ public class PlayerController : MonoBehaviour
     public void StartTurn()
     {
         SwitchIsTurn(true);
+    }
+
+    public void SetHitBox(bool hitBox)
+    {
+        critHit.SetActive(hitBox);
+        hit.SetActive(hitBox);
     }
 }
