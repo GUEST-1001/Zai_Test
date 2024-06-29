@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     public float mainTargetSpeed;
     int p1Hp, p2Hp;
     public bool isPlayer1Turn = false;
+    public bool playWithAI;
+    public Difficulty difficulty;
+    public int aiHitRate;
+
 
     #region Google Sheet Config
     [Header("-----Google Sheet Config-----")]
@@ -49,10 +53,36 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(SyncGoogleSheet());
         p1Hp = playerHP.HP;
-        p2Hp = playerHP.HP;
-
         p1HpSlider.maxValue = playerHP.HP;
-        p2HpSlider.maxValue = playerHP.HP;
+
+        if (!playWithAI)
+        {
+            p2Hp = playerHP.HP;
+            p2HpSlider.maxValue = playerHP.HP;
+        }
+        else
+        {
+            switch (difficulty)
+            {
+                case Difficulty.Easy:
+                    p2Hp = enemyEasy.HP;
+                    p2HpSlider.maxValue = enemyEasy.HP;
+                    aiHitRate = (int)enemyEasy.MissedChance;
+                    break;
+                case Difficulty.Normal:
+                    p2Hp = enemyNormal.HP;
+                    p2HpSlider.maxValue = enemyNormal.HP;
+                    aiHitRate = (int)enemyNormal.MissedChance;
+                    break;
+                case Difficulty.Hard:
+                    p2Hp = enemyHard.HP;
+                    p2HpSlider.maxValue = enemyHard.HP;
+                    aiHitRate = (int)enemyHard.MissedChance;
+                    break;
+            }
+            player2.SetAISetting();
+        }
+
         // player1.isTurn = true;
     }
 
@@ -245,4 +275,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+}
+
+public enum Difficulty
+{
+    Easy,
+    Normal,
+    Hard
 }

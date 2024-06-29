@@ -12,6 +12,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject critHit, hit;
     [SerializeField] GameObject throwSlider;
 
+    [Header("-----AI Setting-----")]
+    bool isPlayWithAI = false;
+    Difficulty _difficulty;
+    int missedRate;
+    [SerializeField] GameObject playerCritPoint;
+
     private void Awake()
     {
         throwSystem = this.GetComponent<ThrowSystem>();
@@ -51,12 +57,32 @@ public class PlayerController : MonoBehaviour
 
     public void StartTurn()
     {
-        SwitchIsTurn(true);
+        switch (isPlayWithAI)
+        {
+            case false:
+                SwitchIsTurn(true);
+                break;
+            case true:
+                AIPlay();
+                break;
+        }
     }
 
     public void SetHitBox(bool hitBox)
     {
         critHit.SetActive(hitBox);
         hit.SetActive(hitBox);
+    }
+
+    public void SetAISetting()
+    {
+        isPlayWithAI = true;
+        _difficulty = GameManager.Instance.difficulty;
+        missedRate = GameManager.Instance.aiHitRate;
+    }
+
+    void AIPlay()
+    {
+        throwSystem.AIThrowOBJ(playerCritPoint.transform.position, true);
     }
 }

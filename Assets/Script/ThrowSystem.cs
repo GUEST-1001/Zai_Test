@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ThrowSystem : MonoBehaviour
 {
     [SerializeField] GameObject throwOBJ;
-    [SerializeField] GameObject target;
+    [SerializeField] public GameObject target;
     MoveTarget moveTarget;
     [SerializeField] float targetSpeed;
     public bool isMousePressed = false;
@@ -48,6 +48,25 @@ public class ThrowSystem : MonoBehaviour
                 ThrowOBJ();
                 isMousePressed = false;
             }
+        }
+    }
+
+    public void AIThrowOBJ(Vector3 critTarget, bool isHit)
+    {
+        switch (isHit)
+        {
+            case true:
+                Vector3 tempPos = this.transform.position;
+                tempPos += new Vector3(0, 0, -0.1f);
+                GameObject temp = Instantiate(throwOBJ, tempPos, Quaternion.identity);
+                Vector3 hitPos = critTarget;
+                hitPos.x -= GameManager.Instance.windValue;
+                hitPos.y -= target.transform.position.y;
+
+                temp.GetComponent<SimpleSlerp>().SetOBJValue(hitPos, EndThrowOBJ, oriPosTargetWorld);
+                break;
+            case false:
+                break;
         }
     }
 

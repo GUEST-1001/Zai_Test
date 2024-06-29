@@ -85,4 +85,5 @@ public class SimpleSlerp : MonoBehaviour
 
         StartCoroutine(StartThrowOBJ());
     }
+
 }
