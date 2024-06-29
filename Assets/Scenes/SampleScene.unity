@@ -2913,7 +2913,7 @@ MonoBehaviour:
   mainTargetSpeed: 20
   isPlayer1Turn: 0
   playWithAI: 1
-  difficulty: 0
+  difficulty: 2
   aiHitRate: 0
   playerHP:
     name: 
@@ -3082,6 +3082,9 @@ MonoBehaviour:
   isPlayWithAI: 0
   missedRate: 0
   playerCritPoint: {fileID: 1220653734}
+  itemHeal: 1
+  itemPow: 1
+  itemDouble: 1
 --- !u!65 &1033348865
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4074,6 +4077,9 @@ MonoBehaviour:
   isPlayWithAI: 0
   missedRate: 0
   playerCritPoint: {fileID: 758524856}
+  itemHeal: 1
+  itemPow: 1
+  itemDouble: 1
 --- !u!65 &1376606699
 BoxCollider:
   m_ObjectHideFlags: 0

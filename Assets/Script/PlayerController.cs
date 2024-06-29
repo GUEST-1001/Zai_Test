@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     Difficulty _difficulty;
     [SerializeField] int missedRate;
     [SerializeField] GameObject playerCritPoint;
+    [SerializeField] bool itemHeal = true, itemPow = true, itemDouble = true;
 
     private void Awake()
     {
@@ -90,8 +91,41 @@ public class PlayerController : MonoBehaviour
         bool isHit = UnityEngine.Random.Range(1, 101) > missedRate;
         Debug.Log(isHit);
 
+        if (GameManager.Instance.GetPlayerHP() <= GameManager.Instance.GetPlayerMaxHP() / 2)
+        {
+            if (itemHeal)
+            {
+                ItemUse.Instance.ItemHeal();
+                itemHeal = false;
+            }
+        }
+
         if (isHit)
+        {
+            if (_difficulty == Difficulty.Normal || _difficulty == Difficulty.Hard)
+            {
+                if (GameManager.Instance.windValue <= 2f && GameManager.Instance.windValue >= -2f)
+                {
+                    if (itemDouble)
+                    {
+                        ItemUse.Instance.ItemDoubleATK();
+                        itemDouble = false;
+                    }
+                }
+            }
+            if (_difficulty == Difficulty.Hard)
+            {
+                if (GameManager.Instance.windValue > 2f && GameManager.Instance.windValue < -2f)
+                {
+                    if (itemPow)
+                    {
+                        ItemUse.Instance.ItemPowerATK();
+                        itemPow = false;
+                    }
+                }
+            }
             throwSystem.AIThrowOBJ(playerCritPoint.transform.position, true);
+        }
         else
             throwSystem.AIThrowOBJ(playerCritPoint.transform.position, false);
     }

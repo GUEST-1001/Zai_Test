@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class ItemUse : MonoBehaviour
 {
+    static public ItemUse Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+    
     public void ItemHeal()
     {
         GameManager.Instance.UseItemHeal();

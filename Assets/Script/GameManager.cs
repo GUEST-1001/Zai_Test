@@ -323,6 +323,30 @@ public class GameManager : MonoBehaviour
         throwAction = _throwAction;
     }
 
+    public int GetPlayerHP()
+    {
+        switch (isPlayer1Turn)
+        {
+            case false:
+                return p2Hp;
+
+            case true:
+                return p1Hp;
+        }
+    }
+
+    public int GetPlayerMaxHP()
+    {
+        switch (isPlayer1Turn)
+        {
+            case false:
+                return (int)p2HpSlider.maxValue;
+
+            case true:
+                return (int)p1HpSlider.maxValue;
+        }
+    }
+
 }
 
 public enum Difficulty
