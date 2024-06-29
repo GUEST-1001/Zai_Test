@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Spine.Unity;
@@ -18,6 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TwoWaySlider windSlider;
     [SerializeField] Image windSliderFill;
     [SerializeField] Slider p1HpSlider, p2HpSlider;
+    public bool isPowerAtk = false;
+    public bool isDoubleAtk = false;
+    Action throwAction;
 
     [Header("-----Game Value-----")]
     public float windValue;
@@ -144,6 +148,8 @@ public class GameManager : MonoBehaviour
         // player1.isTurn = !player1.isTurn;
         // player2.isTurn = !player2.isTurn;
         PlayAni("Idle UnFriendly 1", "Idle UnFriendly 1");
+        isPowerAtk = false;
+        isDoubleAtk = false;
         isPlayer1Turn = !isPlayer1Turn;
         switch (isPlayer1Turn)
         {
@@ -168,14 +174,14 @@ public class GameManager : MonoBehaviour
 
     void RandomWind()
     {
-        windValue = Random.Range(0f, 5f);
+        windValue = UnityEngine.Random.Range(0f, 5f);
         if (windValue < 1f)
         {
             windValue = 0f;
         }
         else
         {
-            switch (Random.Range(0, 2))
+            switch (UnityEngine.Random.Range(0, 2))
             {
                 case 1:
                     windValue = -windValue;
@@ -222,11 +228,19 @@ public class GameManager : MonoBehaviour
         switch (isPlayer1Turn)
         {
             case true:
-                p2Hp -= dmg;
+                if (isPowerAtk)
+                    p2Hp -= PowAtk.damage;
+                else
+                    p2Hp -= dmg;
+
                 p2Hp = p2Hp < 0 ? 0 : p2Hp;
                 break;
             case false:
-                p1Hp -= dmg;
+                if (isPowerAtk)
+                    p1Hp -= PowAtk.damage;
+                else
+                    p1Hp -= dmg;
+
                 p1Hp = p1Hp < 0 ? 0 : p1Hp;
                 break;
         }
@@ -241,6 +255,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PlayAniAndWait(string nowPlayer, string targetPlayer, float waitTime)
     {
+        if (isDoubleAtk)
+            waitTime = 1f;
+
         if (p1Hp > 0 && p2Hp > 0)
         {
             switch (isPlayer1Turn)
@@ -253,7 +270,17 @@ public class GameManager : MonoBehaviour
                     break;
             }
             yield return new WaitForSeconds(waitTime);
-            EndTurn();
+
+            if (isDoubleAtk)
+            {
+                PlayAni("Idle UnFriendly 1", "Idle UnFriendly 1");
+                throwAction();
+                isDoubleAtk = false;
+            }
+            else
+            {
+                EndTurn();
+            }
         }
         else
         {
@@ -273,6 +300,27 @@ public class GameManager : MonoBehaviour
             PlayAni("Cheer Friendly", "Moody UnFriendly");
             Debug.Log("Player 1 Win");
         }
+    }
+
+    public void UseItemHeal()
+    {
+        switch (isPlayer1Turn)
+        {
+            case false:
+                p2Hp += heal.HP;
+                p2Hp = p2Hp > p2HpSlider.maxValue ? (int)p2HpSlider.maxValue : p2Hp;
+                break;
+            case true:
+                p1Hp += heal.HP;
+                p1Hp = p1Hp > p1HpSlider.maxValue ? (int)p1HpSlider.maxValue : p1Hp;
+                break;
+        }
+        SetHPUI();
+    }
+
+    public void UseItemDoulde(Action _throwAction)
+    {
+        throwAction = _throwAction;
     }
 
 }

@@ -50,7 +50,8 @@ public class ThrowOBJHit : MonoBehaviour
             GameManager.Instance.CalcEndTurn("NoHit");
         }
         // GameManager.Instance.EndTurn();
-        Destroy(this.gameObject);
+        if (!GameManager.Instance.isDoubleAtk)
+            Destroy(this.gameObject);
         yield return null;
     }
 }

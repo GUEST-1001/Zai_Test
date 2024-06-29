@@ -53,7 +53,10 @@ public class SimpleSlerp : MonoBehaviour
             }
             yield return null;
         }
-        _endThrow();
+        if (GameManager.Instance.isDoubleAtk)
+            GameManager.Instance.UseItemDoulde(() => StartCoroutine(StartThrowOBJ()));
+        else
+            _endThrow();
         StartCoroutine(this.GetComponent<ThrowOBJHit>().CheckColliderList());
     }
 

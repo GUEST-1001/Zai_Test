@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     ThrowSystem throwSystem;
     [SerializeField] GameObject critHit, hit;
     [SerializeField] GameObject throwSlider;
+    [SerializeField] GameObject itemBar;
 
     [Header("-----AI Setting-----")]
     [SerializeField] bool isPlayWithAI = false;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         throwSystem = this.GetComponent<ThrowSystem>();
         throwSystem._switchIsTurn = SwitchIsTurn;
         throwSystem.throwSlider = throwSlider;
+        itemBar.SetActive(false);
     }
 
     private void OnMouseDown()
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
             // target.transform.position += Vector3.left * Time.deltaTime;
             throwSlider.SetActive(true);
             throwSystem.isMousePressed = true;
+            itemBar.SetActive(false);
         }
     }
 
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
         {
             case false:
                 SwitchIsTurn(true);
+                itemBar.SetActive(true);
                 break;
             case true:
                 AIPlay();
@@ -85,7 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         bool isHit = UnityEngine.Random.Range(1, 101) > missedRate;
         Debug.Log(isHit);
-        
+
         if (isHit)
             throwSystem.AIThrowOBJ(playerCritPoint.transform.position, true);
         else
