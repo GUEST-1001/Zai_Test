@@ -53,21 +53,27 @@ public class ThrowSystem : MonoBehaviour
 
     public void AIThrowOBJ(Vector3 critTarget, bool isHit)
     {
-        switch (isHit)
-        {
-            case true:
-                Vector3 tempPos = this.transform.position;
-                tempPos += new Vector3(0, 0, -0.1f);
-                GameObject temp = Instantiate(throwOBJ, tempPos, Quaternion.identity);
-                Vector3 hitPos = critTarget;
-                hitPos.x -= GameManager.Instance.windValue;
-                hitPos.y -= target.transform.position.y;
+        Vector3 tempPos = this.transform.position;
+        tempPos += new Vector3(0, 0, -0.1f);
+        GameObject temp = Instantiate(throwOBJ, tempPos, Quaternion.identity);
+        Vector3 hitPos = critTarget;
+        hitPos.x -= GameManager.Instance.windValue;
+        hitPos.y -= target.transform.position.y;
 
-                temp.GetComponent<SimpleSlerp>().SetOBJValue(hitPos, EndThrowOBJ, oriPosTargetWorld);
-                break;
-            case false:
-                break;
+        if (!isHit)
+        {
+            switch (UnityEngine.Random.Range(0, 2))
+            {
+                case 1:
+                    hitPos.x += UnityEngine.Random.Range(2.5f, 3.5f);
+                    break;
+                case 0:
+                    hitPos.x -= UnityEngine.Random.Range(2.5f, 7f);
+                    break;
+            }
         }
+
+        temp.GetComponent<SimpleSlerp>().SetOBJValue(hitPos, EndThrowOBJ, oriPosTargetWorld);
     }
 
     public void ThrowOBJ()

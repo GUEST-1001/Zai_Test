@@ -2581,7 +2581,7 @@ MonoBehaviour:
   mainTargetSpeed: 20
   isPlayer1Turn: 0
   playWithAI: 1
-  difficulty: 2
+  difficulty: 0
   aiHitRate: 0
   playerHP:
     name: 
@@ -2746,6 +2746,8 @@ MonoBehaviour:
   critHit: {fileID: 758524856}
   hit: {fileID: 305401989}
   throwSlider: {fileID: 955476158}
+  isPlayWithAI: 0
+  missedRate: 0
   playerCritPoint: {fileID: 1220653734}
 --- !u!65 &1033348865
 BoxCollider:
@@ -3355,6 +3357,8 @@ MonoBehaviour:
   critHit: {fileID: 1220653734}
   hit: {fileID: 1349277596}
   throwSlider: {fileID: 1407278169}
+  isPlayWithAI: 0
+  missedRate: 0
   playerCritPoint: {fileID: 758524856}
 --- !u!65 &1376606699
 BoxCollider:
@@ -4002,7 +4006,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: -10, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1893442531

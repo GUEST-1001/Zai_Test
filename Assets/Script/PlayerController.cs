@@ -13,9 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject throwSlider;
 
     [Header("-----AI Setting-----")]
-    bool isPlayWithAI = false;
+    [SerializeField] bool isPlayWithAI = false;
     Difficulty _difficulty;
-    int missedRate;
+    [SerializeField] int missedRate;
     [SerializeField] GameObject playerCritPoint;
 
     private void Awake()
@@ -83,6 +83,12 @@ public class PlayerController : MonoBehaviour
 
     void AIPlay()
     {
-        throwSystem.AIThrowOBJ(playerCritPoint.transform.position, true);
+        bool isHit = UnityEngine.Random.Range(1, 101) > missedRate;
+        Debug.Log(isHit);
+        
+        if (isHit)
+            throwSystem.AIThrowOBJ(playerCritPoint.transform.position, true);
+        else
+            throwSystem.AIThrowOBJ(playerCritPoint.transform.position, false);
     }
 }
