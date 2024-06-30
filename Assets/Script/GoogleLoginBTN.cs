@@ -26,6 +26,8 @@ public class GoogleLoginBTN : MonoBehaviour
             WebClientId = webClientId,
             RequestIdToken = true
         };
+        userImg.sprite = null;
+        userNameText.text = null;
     }
 
     public void OnSignIn()
@@ -75,6 +77,8 @@ public class GoogleLoginBTN : MonoBehaviour
     public void OnSignOut()
     {
         GoogleSignIn.DefaultInstance.SignOut();
+        userImg.sprite = null;
+        userNameText.text = null;
     }
 
     IEnumerator LoadIMG(string imgURL)
