@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class ResultUi : MonoBehaviour
 {
+    static public ResultUi Instance;
+    [SerializeField] TMP_Text winNameText;
+    [SerializeField] GameObject resultUI;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private IEnumerator TakeScreenshotAndShare()
     {
         yield return new WaitForEndOfFrame();
@@ -30,5 +40,11 @@ public class ResultUi : MonoBehaviour
     public void ShareBTN()
     {
         StartCoroutine(TakeScreenshotAndShare());
+    }
+
+    public void ShowWinUI(string winPlayer)
+    {
+        winNameText.text = winPlayer;
+        resultUI.SetActive(true);
     }
 }

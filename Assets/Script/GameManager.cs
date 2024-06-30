@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public bool isPowerAtk = false;
     public bool isDoubleAtk = false;
     Action throwAction;
+    [SerializeField] GameSetting gameSetting;
 
     [Header("-----Game Value-----")]
     public float windValue;
@@ -52,6 +53,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        playWithAI = gameSetting.playWithAI;
+        difficulty = gameSetting.selectDifficulty;
+
         p1SpineState = p1Spine.AnimationState;
         p2SpineState = p2Spine.AnimationState;
 
@@ -225,24 +230,27 @@ public class GameManager : MonoBehaviour
 
     void CalcHitDmg(int dmg)
     {
-        switch (isPlayer1Turn)
+        if (!(dmg == 0))
         {
-            case true:
-                if (isPowerAtk)
-                    p2Hp -= PowAtk.damage;
-                else
-                    p2Hp -= dmg;
+            switch (isPlayer1Turn)
+            {
+                case true:
+                    if (isPowerAtk)
+                        p2Hp -= PowAtk.damage;
+                    else
+                        p2Hp -= dmg;
 
-                p2Hp = p2Hp < 0 ? 0 : p2Hp;
-                break;
-            case false:
-                if (isPowerAtk)
-                    p1Hp -= PowAtk.damage;
-                else
-                    p1Hp -= dmg;
+                    p2Hp = p2Hp < 0 ? 0 : p2Hp;
+                    break;
+                case false:
+                    if (isPowerAtk)
+                        p1Hp -= PowAtk.damage;
+                    else
+                        p1Hp -= dmg;
 
-                p1Hp = p1Hp < 0 ? 0 : p1Hp;
-                break;
+                    p1Hp = p1Hp < 0 ? 0 : p1Hp;
+                    break;
+            }
         }
         SetHPUI();
     }
@@ -293,12 +301,12 @@ public class GameManager : MonoBehaviour
         if (p1Hp <= 0)
         {
             PlayAni("Moody UnFriendly", "Cheer Friendly");
-            Debug.Log("Player 2 Win");
+            ResultUi.Instance.ShowWinUI("Rich Pig");
         }
         else
         {
             PlayAni("Cheer Friendly", "Moody UnFriendly");
-            Debug.Log("Player 1 Win");
+            ResultUi.Instance.ShowWinUI("Aunt Next Door");
         }
     }
 
